@@ -3,6 +3,17 @@ class MoviesController < ApplicationController
 
   def index
     @movies = Movie.all
+    sort_attr = params[:sort_by]
+    if sort_attr === "r_date"
+      @movies.sort_by! do |mov|
+        mov[:release_date]
+      end
+    end
+    if sort_attr === "title"
+      @movies.sort_by! do |mov| 
+        mov[:title]
+      end
+    end
   end
 
   def show
