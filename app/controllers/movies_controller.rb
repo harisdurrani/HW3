@@ -8,11 +8,18 @@ class MoviesController < ApplicationController
       @movies.sort_by! do |mov|
         mov[:release_date]
       end
-    end
-    if sort_attr === "title"
+      @rdate= "hilite"
+    elsif sort_attr === "title"
       @movies.sort_by! do |mov| 
         mov[:title]
       end
+      @title= "hilite"
+    end
+    @all_ratings = @movies.first.set_rating
+    # flash[:notice] = params[:ratings]
+    @ratings_arr = params[:ratings]
+    if @ratings_arr != nil
+      @movies.select!{|movie| @ratings_arr.include?(movie.rating)}
     end
   end
 
